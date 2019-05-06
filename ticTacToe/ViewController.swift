@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     var state = [0,0,0,0,0,0,0,0,0,0] // array that represents the board
     let winningCombos = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]] // possible winning combinations on the board
     var gameActive = true
+    var turns = 0;
     
     //when a user presses a box , it fills it with a cross or circle depending on whose turn it is
     @IBAction func action(_ sender: AnyObject) {
@@ -33,12 +34,18 @@ class ViewController: UIViewController {
         state[sender.tag-1] = currentPlayer
             if(currentPlayer == 1){
                 sender.setImage(UIImage(named:"cross.png"), for: UIControlState())
-                currentPlayer = 2
+                currentPlayer = 2;
+                turns += 1;
                 }
             else{
                 sender.setImage(UIImage(named:"circle.png"), for: UIControlState())
                 currentPlayer = 1
+                turns += 1;
             }
+        }
+        if(turns == 9){
+            winner.text = "It's a draw!";
+            gameEnded();
         }
         for combo in winningCombos{
             if state[combo[0]] != 0 && state[combo[0]] == state[combo[1]] && state[combo[1]] == state[combo[2]]{
@@ -50,19 +57,16 @@ class ViewController: UIViewController {
                     gameEnded();
                     for i in state{
                         print("state \(i) = \(state[i])")
-                        state[i] = 0;
                     }
                 }
                 else{
                     winner.text = "Circle Wins!"
                     print("circle wins")
                     gameEnded();
-                    for i in state{
-                        print("state \(i) = \(state[i])")
-                        state[i] = 0;
-                    }
+                    
                 }
-        }
+            }
+    
     }
         
         
@@ -113,6 +117,7 @@ class ViewController: UIViewController {
         cell9.setImage(nil, for: UIControlState())
         state = [0,0,0,0,0,0,0,0,0,0];
         winner.text = "";
+        turns = 0;
     }
     
     func gameEnded(){
@@ -128,6 +133,8 @@ class ViewController: UIViewController {
         cell8.isEnabled = false;
         cell9.isEnabled = false;
     }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad();
