@@ -43,6 +43,7 @@ class ViewController: UIViewController {
                 turns += 1;
             }
         }
+        //checks if the game has reached 9 turns yet and concludes with a draw if there has been (9 turns fills the board)
         if(turns == 9){
             winner.text = "It's a draw!";
             gameEnded();
@@ -68,30 +69,6 @@ class ViewController: UIViewController {
             }
     
     }
-        
-        
-        //logic for draw? i dont know why its not working
-        
-        /*
-        gameActive = false
-        
-        for i in state
-        {
-            if i == 0
-            {
-                gameActive = true
-                break
-            }
-        }
-        
-        if gameActive == false
-        {
-            winner.text = "IT WAS A DRAW"
-        }
-        
-        
-        */
-        
 }
     
     @IBAction func startGameBtnPress(sender: UIButton){
